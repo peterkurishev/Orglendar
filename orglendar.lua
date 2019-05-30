@@ -13,10 +13,10 @@ local naughty = require("naughty")
 local orglendar = { files = {},
                     colors = { text_color = theme.fg_normal or "#aaaaaa",
                                today_color = theme.fg_focus or "#FFFFFF",
-                               event_color = "#7777ff",
-                               active_event_color = "#888800",
-                               scheduled_event_color = "#00FF00",
-                               deadline_event_color = "#FF0000", },
+                               event_color = theme.fg_normal or "#7777ff",
+                               active_event_color = theme.fg_normal or "#888800",
+                               scheduled_event_color = theme.fg_normal or "#00FF00",
+                               deadline_event_color = theme.fg_normal or "#FF0000", },
                     fonts = { calendar_font = 'monospace 12',
                               todo_font = 'monospace 13', },
                     parse_on_show = true,
@@ -347,7 +347,7 @@ local function create_todo()
          -- })
          result = result ..
             format('<span weight="bold" font="monospace 13" foreground="%s">%s</span>\n',
-                   orglendar.colors[ttype.. "_event_color"],
+                   orglendar.colors[ttype .. "_event_color"],
                    pop_spaces(os.date(
                                  orglendar.date_format,
                                  cur_task.date
@@ -361,7 +361,7 @@ local function create_todo()
          tname = string.sub(tname, 1, limit - 3) .. "..."
       end
       result = result .. ("<span foreground='%s'>%s</span>"):format(
-         "#0000FF",
+         orglendar.colors[ttype .. "_event_color"],
          pop_spaces("  - " .. tname, cur_task.tags, maxlen))
 
       if i ~= #data.tasks then
